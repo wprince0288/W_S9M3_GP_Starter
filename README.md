@@ -7,12 +7,14 @@ Practice **custom hooks** following along with your instructor.
 1. Node >= 18.x
 2. Git Bash (Windows users)
 
-## ✨ Usage
+## 💾 Setup
 
-1. Clone repo to local
-2. Run `npm install`
-3. Run `npm run dev`
-4. Load app in `http://localhost:3003`
+1. Clone this repository to your computer.
+2. Within your terminal, navigate to the project folder and execute `npm install`.
+3. After successful installation execute `npm run dev`.
+4. You will load the app in Chrome by navigating the browser to http://localhost:3003.
+
+## ❗ Notes
 
 This project has 2 endpoints:
 
