@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useInput } from '../hooks'
 
 const BASE_URL = 'http://localhost:9009/acme/auth'
 
 export default function Login() {
   const navigate = useNavigate()
   const [message, setMessage] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const onUsernameChange = e => setUsername(e.target.value)
-  const onPasswordChange = e => setPassword(e.target.value)
+  const usernameInput = useInput('username')
+  const passwordInput = useInput('password')
   const onSubmit = async e => {
     e.preventDefault()
     const payload = {
-      username,
-      password,
+      username: usernameInput.value,
+      password: passwordInput.value,
     }
     try {
       const res = await axios.post(`${BASE_URL}/login`, payload)
@@ -34,14 +33,12 @@ export default function Login() {
         <input
           type="text"
           placeholder="username"
-          value={username}
-          onChange={onUsernameChange}
+          {...usernameInput}
         />
         <input
           type="password"
           placeholder="password"
-          value={password}
-          onChange={onPasswordChange}
+          {...passwordInput}
         />
         <button>Login</button>
       </form>

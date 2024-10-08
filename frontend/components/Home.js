@@ -1,31 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-const BASE_URL = 'http://localhost:9009/acme/auth'
+import { useAuth } from '../hooks'
 
 export default function Home() {
   const navigate = useNavigate()
-  const [auth, setAuth] = useState(null)
-  async function checkAuth() {
-    try {
-      await axios.get(
-        `${BASE_URL}/is_authed`,
-        { headers: { Authorization: localStorage.getItem('token') } },
-      )
-      setAuth(true)
-    } catch (err) {
-      localStorage.removeItem('token')
-      setAuth(false)
-    }
-  }
-  useEffect(() => {
-    if (!localStorage.getItem('token')) navigate('/login')
-    else checkAuth()
-  }, [])
-  useEffect(() => {
-    if (auth === false) navigate('/login')
-  }, [auth])
+  const { auth, checkAuth } = useAuth(() => navigate('/login'))
+
   const sensitiveStuff = async () => {
     await checkAuth()
     // doing sensitive stuff
